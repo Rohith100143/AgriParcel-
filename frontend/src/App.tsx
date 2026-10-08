@@ -1,122 +1,223 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+
+type Screen =
+  | "Overview"
+  | "Map"
+  | "Field Objects"
+  | "Statistics"
+  | "Verification";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeScreen, setActiveScreen] = useState<Screen>("Overview");
+
+  const screens: Screen[] = [
+    "Overview",
+    "Map",
+    "Field Objects",
+    "Statistics",
+    "Verification",
+  ];
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    <div className="app">
+      <header className="header">
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+          <h1>AgriParcel</h1>
+          <p>Agricultural Mapping & Verification</p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
+      <div className="app-body">
+        <aside className="sidebar">
+          <nav>
+            {screens.map((screen) => (
+              <button
+                key={screen}
+                className={activeScreen === screen ? "active" : ""}
+                onClick={() => setActiveScreen(screen)}
+              >
+                {screen}
+              </button>
+            ))}
+          </nav>
+        </aside>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <main className="main-content">
+          {activeScreen === "Overview" && (
+            <>
+              <div className="page-heading">
+                <h2>Overview</h2>
+                <p>
+                  Satellite-derived agricultural mapping and verification
+                  dashboard.
+                </p>
+              </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+              <section className="overview-grid">
+                <div className="stat-card">
+                  <span>Study Area</span>
+                  <strong>—</strong>
+                  <small>km²</small>
+                </div>
+
+                <div className="stat-card">
+                  <span>Agricultural Area</span>
+                  <strong>—</strong>
+                  <small>ha</small>
+                </div>
+
+                <div className="stat-card">
+                  <span>Paddy Area</span>
+                  <strong>—</strong>
+                  <small>ha</small>
+                </div>
+
+                <div className="stat-card">
+                  <span>Banana Area</span>
+                  <strong>—</strong>
+                  <small>ha</small>
+                </div>
+
+                <div className="stat-card">
+                  <span>Field Objects</span>
+                  <strong>—</strong>
+                  <small>objects</small>
+                </div>
+
+                <div className="stat-card">
+                  <span>Evidence Quality</span>
+                  <strong>—</strong>
+                  <small>backend result</small>
+                </div>
+              </section>
+
+              <section className="overview-panels">
+                <div className="panel">
+                  <h3>Study Area</h3>
+
+                  <div className="info-row">
+                    <span>District</span>
+                    <strong>Tirunelveli</strong>
+                  </div>
+
+                  <div className="info-row">
+                    <span>Taluks</span>
+                    <strong>Ambasamudram & Cheranmahadevi</strong>
+                  </div>
+
+                  <div className="info-row">
+                    <span>Study Area</span>
+                    <strong>—</strong>
+                  </div>
+                </div>
+
+                <div className="panel">
+                  <h3>Analysis</h3>
+
+                  <div className="info-row">
+                    <span>Satellite Data</span>
+                    <strong>—</strong>
+                  </div>
+
+                  <div className="info-row">
+                    <span>Analysis Period</span>
+                    <strong>—</strong>
+                  </div>
+
+                  <div className="info-row">
+                    <span>Model</span>
+                    <strong>—</strong>
+                  </div>
+                </div>
+              </section>
+
+              <section className="notice-panel">
+                <h3>Data Status</h3>
+                <p>
+                  Satellite analysis results will appear here after the
+                  backend processing pipeline is connected.
+                </p>
+              </section>
+            </>
+          )}
+
+          {activeScreen === "Map" && (
+            <>
+              <div className="page-heading">
+                <h2>Map</h2>
+                <p>Satellite-derived agricultural map.</p>
+              </div>
+
+              <div className="empty-state">
+                <h3>Map interface</h3>
+                <p>
+                  MapLibre map and classified field objects will be connected
+                  to backend outputs.
+                </p>
+              </div>
+            </>
+          )}
+
+          {activeScreen === "Field Objects" && (
+            <>
+              <div className="page-heading">
+                <h2>Field Objects</h2>
+                <p>
+                  Image-derived agricultural field objects and crop
+                  classifications.
+                </p>
+              </div>
+
+              <div className="empty-state">
+                <h3>Field object data</h3>
+                <p>
+                  Backend-generated field objects will be displayed here.
+                </p>
+              </div>
+            </>
+          )}
+
+          {activeScreen === "Statistics" && (
+            <>
+              <div className="page-heading">
+                <h2>Statistics</h2>
+                <p>Mapped agricultural area and classification statistics.</p>
+              </div>
+
+              <div className="empty-state">
+                <h3>Statistics</h3>
+                <p>
+                  Statistics will be populated from backend results. No
+                  calculated values are invented in the frontend.
+                </p>
+              </div>
+            </>
+          )}
+
+          {activeScreen === "Verification" && (
+            <>
+              <div className="page-heading">
+                <h2>Verification</h2>
+                <p>
+                  Compare declared agricultural area with satellite-derived
+                  mapped area.
+                </p>
+              </div>
+
+              <div className="empty-state">
+                <h3>Verification results</h3>
+                <p>
+                  Declaration comparison, evidence quality, and review status
+                  will be populated from backend results.
+                </p>
+              </div>
+            </>
+          )}
+        </main>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
